@@ -1,0 +1,68 @@
+alarm_control_panel:
+  - platform: manual
+    name: Home Alarm
+    pending_time: 15
+    delay_time: 30
+    trigger_time: 10
+    disarmed:
+      trigger_time: 0
+
+input_boolean:
+  alarm_control_panel_disarm:
+    name: Alarm Control Panel Disarm
+  alarm_control_panel_trigger:
+    name: Alarm Control Panel Trigger Test
+
+automation:
+  - id: alarm_control_panel_test
+    alias: Alarm Control Panel Test
+    trigger:
+      - platform: state
+        entity_id:
+          - input_boolean.alarm_control_panel_trigger
+        to: "on"
+    action:
+      - service: alarm_control_panel.alarm_trigger
+        entity_id: alarm_control_panel.home_alarm
+
+  - id: alarm_control_panel_notify
+    alias: Alarm Control Panel Send Notification
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: "triggered"
+    action:
+      - service: notify.ios_ergisch
+        data:
+          title: "Test Alarm"
+          message: "Triggered"
+
+  - id: alarm_control_panel_disarm
+    alias: Alarm Control Panel Disarm
+    trigger:
+      - platform: state
+        entity_id: input_boolean.alarm_control_panel_disarm
+        to: "on"
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("alarm_control_panel.home_alarm") != "disarmed"}}
+    action:
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.home_alarm
+      - service: notify.ios_ergisch
+        data:
+          title: "Test Alarm"
+          message: "Disarmed"
+
+  - id: alarm_contry_panel_notify_state
+    alias: Alarm Control Panel
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+    action:
+      - service: notify.ios_ergisch
+        data:
+          title: "Test Alarm"
+          message: >-
+            Home set to {{ states("alarm_control_panel.home_alarm") }}

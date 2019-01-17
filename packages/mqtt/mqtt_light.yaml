@@ -1,0 +1,84 @@
+light:
+  - platform: mqtt
+    unique_id: hue_lux_bulb_1
+    name: "Grandma's Lamp"
+    state_topic: "smartthings/Grandma's Lamp/switch"
+    command_topic: "smartthings/Grandma's Lamp/switch"
+    payload_on: "on"
+    payload_off: "off"
+    brightness_state_topic: "smartthings/Grandma's Lamp/level"
+    brightness_command_topic: "smartthings/Grandma's Lamp/level"
+    brightness_scale: 100
+    retain: true
+    optimistic: true
+
+  - platform: mqtt
+    unique_id: ge_link_bulb_1
+    name: "Living Room Lamp"
+    state_topic: "smartthings/Bedroom Closet/switch"
+    command_topic: "smartthings/Bedroom Closet/switch"
+    payload_on: "on"
+    payload_off: "off"
+    brightness_state_topic: "smartthings/Bedroom Closet/level"
+    brightness_command_topic: "smartthings/Bedroom Closet/level"
+    brightness_scale: 100
+    optimistic: true
+    retain: true
+
+  - platform: mqtt
+    unique_id: ge_link_bulb_2
+    name: "Accordian Lamp"
+    state_topic: "smartthings/Camille's Desk Lamp/switch"
+    command_topic: "smartthings/Camille's Desk Lamp/switch"
+    brightness_state_topic: "smartthings/Camille's Desk Lamp/level"
+    brightness_command_topic: "smartthings/Camille's Desk Lamp/level"
+    brightness_scale: 100
+    payload_on: "on"
+    payload_off: "off"
+    optimistic: true
+    retain: true
+
+  - platform: mqtt
+    unique_id: ge_link_bulb_3
+    name: "Metal Lamp"
+    state_topic: "smartthings/Entry Light/switch"
+    command_topic: "smartthings/Entry Light/switch"
+    brightness_state_topic: "smartthings/Entry Light/level"
+    brightness_command_topic: "smartthings/Entry Light/level"
+    brightness_scale: 100
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - platform: mqtt
+    unique_id: ge_link_bulb_4
+    name: "Bedroom Lamp"
+    state_topic: "smartthings/Bedroom Lamp/switch"
+    command_topic: "smartthings/Bedroom Lamp/switch"
+    brightness_state_topic: "smartthings/Bedroom Lamp/level"
+    brightness_command_topic: "smartthings/Bedroom Lamp/level"
+    brightness_scale: 100
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - platform: mqtt
+    unique_id: aeotec_smart_dimmer_6
+    name: "Bedroom Canopy"
+    state_topic: "smartthings/Bedroom Canopy/switch"
+    command_topic: "smartthings/Bedroom Canopy/switch"
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - platform: mqtt
+    unique_id: hue_lux_bulb_2
+    name: "Hallway Light"
+    state_topic: "smartthings/Hallway Light/switch"
+    command_topic: "smartthings/Hallway Light/switch"
+    brightness_state_topic: "smartthings/Hallway Light/level"
+    brightness_command_topic: "smartthings/Hallway Light/level"
+    brightness_scale: 100
+    payload_on: "on"
+    payload_off: "off"
+    retain: true

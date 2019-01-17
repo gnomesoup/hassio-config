@@ -1,0 +1,102 @@
+binary_sensor:
+  platform: template
+  sensors:
+      door_sensor_1:
+        device_class: opening
+        friendly_name: "Mary's Door"
+        value_template: >-
+          {{ states.sensor.linear_wadwaz_1_door_window_sensor_alarm_level_3.state|float > 0 }}
+      door_sensor_2:
+        device_class: opening
+        friendly_name: "Front Door"
+        value_template: >-
+          {{ states.sensor.linear_wadwaz_1_door_window_sensor_alarm_level_2.state|float > 0 }}
+      door_sensor_3:
+        device_class: opening
+        friendly_name: "Patio Door"
+        value_template: >-
+          {{ states.sensor.linear_wadwaz_1_door_window_sensor_alarm_level.state|float > 0 }}
+
+input_boolean:
+  door_alert_delay:
+    name: Door Alert Delay
+    icon: mdi:bell-off
+    initial: off
+
+automation:
+  - alias: "Reset Door Delay"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.door_alert_delay
+        to: "on"
+    action:
+      - service: script.turn_on
+        entity_id: script.reset_door_delay
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.home_alarm
+
+  # - alias: Notify Door
+  #   trigger:
+  #     - platform: state
+  #       entity_id:
+  #         - binary_sensor.door_sensor_1
+  #         - binary_sensor.door_sensor_2
+  #         - binary_sensor.door_sensor_3
+  #       to: "on"
+  #     - platform: state
+  #       entity_id: binary_sensor.door_sensor_1
+  #       to: "off"
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.door_alert_delay
+  #       state: "off"
+  #   action:
+  #     - service: notify.notify
+  #       data_template:
+  #         title: "Door Alert"
+  #         message: >-
+  #           {{ state_attr(trigger.entity_id, "friendly_name") }} is{%
+  #           if is_state(trigger.entity_id, "on") %} open {% else %} closed {% endif %}
+
+  - alias: Alert Door
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.door_sensor_1
+          - binary_sensor.door_sensor_2
+          - binary_sensor.door_sensor_3
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.door_alert_delay
+        state: "off"
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: "armed_home"
+    action:
+      - service: media_player.play_media
+        data:
+          entity_id:
+            - media_player.living_room_display
+            - media_player.bedroom_speaker
+          media_content_id: "http://www.downloadfreesound.com/wp-content/uploads/2014/07/Beep_7.mp3"
+          media_content_type: "music"
+
+script:
+  reset_door_delay:
+    alias: Reset the door delay
+    sequence:
+      - delay:
+          seconds: 15
+      - service: input_boolean.turn_off
+        data:
+          entity_id:
+            - input_boolean.door_alert_delay
+
+  door_alert_delay:
+    alias: Delay front door alert
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id:
+            - input_boolean.door_alert_delay
