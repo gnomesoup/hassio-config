@@ -35,28 +35,28 @@ automation:
       - service: alarm_control_panel.alarm_disarm
         entity_id: alarm_control_panel.home_alarm
 
-  # - alias: Notify Door
-  #   trigger:
-  #     - platform: state
-  #       entity_id:
-  #         - binary_sensor.door_sensor_1
-  #         - binary_sensor.door_sensor_2
-  #         - binary_sensor.door_sensor_3
-  #       to: "on"
-  #     - platform: state
-  #       entity_id: binary_sensor.door_sensor_1
-  #       to: "off"
-  #   condition:
-  #     - condition: state
-  #       entity_id: input_boolean.door_alert_delay
-  #       state: "off"
-  #   action:
-  #     - service: notify.notify
-  #       data_template:
-  #         title: "Door Alert"
-  #         message: >-
-  #           {{ state_attr(trigger.entity_id, "friendly_name") }} is{%
-  #           if is_state(trigger.entity_id, "on") %} open {% else %} closed {% endif %}
+  - alias: Notify Door
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.door_sensor_1
+          - binary_sensor.door_sensor_2
+          - binary_sensor.door_sensor_3
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.door_sensor_1
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: input_boolean.door_alert_delay
+        state: "off"
+    action:
+      - service: notify.notify
+        data_template:
+          title: "Door Alert"
+          message: >-
+            {{ state_attr(trigger.entity_id, "friendly_name") }} is{%
+            if is_state(trigger.entity_id, "on") %} open {% else %} closed {% endif %}
 
   - alias: Alert Door
     trigger:
@@ -72,7 +72,7 @@ automation:
         state: "off"
       - condition: state
         entity_id: alarm_control_panel.home_alarm
-        state: "armed_home"
+        state: "armed_night"
     action:
       - service: media_player.play_media
         data:
