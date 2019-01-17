@@ -1,0 +1,54 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      motion_mary_bedroom:
+        device_class: motion
+        friendly_name: "Mary's Bedroom Motion Sensor"
+        value_template: >-
+          {{ states("sensor.linear_wapirz1_motion_sensor_alarm_level")|float > 0 }}
+      motion_hallway:
+        device_class: motion
+        friendly_name: "Hallway Motion"
+        value_template: >-
+          {{ states("sensor.linear_wapirz1_motion_sensor_alarm_level_2")|float > 0 }}
+      # motion_camille_bedroom:
+      #   device_class: motion
+      #   friendly_name: "Camille's Bedroom Motion"
+      #   value_template: >-
+      #     {{ states("binary_sensor.aeotec_dsb05_multisensor_sensor") == "on" }}
+      motion_master_bedroom:
+        device_class: motion
+        friendly_name: "Master Bedroom Motion"
+        value_template: >-
+          {{ states("binary_sensor.aeotec_zw100_multisensor_6_sensor") == "on" }}
+
+automation:
+  - alias: Notify Motion Mary
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.motion_mary_bedroom
+        to: "on"
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("input_select.mary_status") == "Asleep" }}
+    action:
+      - service: notify.ios_ergisch
+        data:
+          title: "Motion Alert"
+          message: "Mary's Bedroom"
+
+  - alias: Notify Motion Hallway
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.motion_hallway
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: "armed_night"
+    action:
+      - service: notify.ios_ergisch
+        data:
+          title: "Motion Alert"
+          message: "Hallway"
