@@ -1,3 +1,10 @@
+(defun mjp/match-file-contents (regex filePath)
+  "Matches a regular expression with contents in another file"
+  (let ((fContents (with-temp-buffer (insert-file-contents filePath nil)
+                                     (buffer-string))))
+    (string-match regex fContents)
+    (match-string 1 fContents)))
+
 (defun mjp/hassio-gitpull-restart()
   "Restart the hassio Git Pull addon"
   (interactive)
