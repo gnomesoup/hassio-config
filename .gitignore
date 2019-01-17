@@ -4,10 +4,12 @@
 # Whitelist the filetypes we care about
 !*/
 !*.yaml
-!/packages/**/*.yaml
-!.gitignore
 !*.md
 !*.xml
+!*.el
+!*.http
+!/packages/**/*.yaml
+!.gitignore
 
 # Ignore folders
 .storage

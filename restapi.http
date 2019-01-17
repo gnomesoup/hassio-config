@@ -1,0 +1,50 @@
+# variables
+:hass-url := (mjp/match-file-contents "hass-url = \\(.*\\)" "hass-token.txt")
+:hass-token := (mjp/match-file-contents "hass-token = \\(.*\\)" "hass-token.txt")
+
+# states
+GET :hass-url/api/states
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
+# services
+GET :hass-url/api/services
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
+# state entities only
+POST :hass-url/api/template
+Authorization: Bearer :hass-token
+Content-Type: application/json
+{"template":"{% for state in states %}{{state.entity_id}}\n{% endfor %}"}
+
+# restart git_pull
+POST :hass-url/api/services/hassio/addon_restart
+Authorization: Bearer :hass-token
+Content-Type: application/json
+{"addon":"core_git_pull"}
+
+# check config
+POST :hass-url/api/services/homeassistant/check_config
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
+# download config as json
+GET :hass-url/api/config
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
+# history
+POST :hass-url/api/history/period/2018-11-10T13:00:00+05:00
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
+# humidity power sensor state
+GET :hass-url/api/dev-info
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
+# entity state
+GET :hass-url/api/states/binary_sensor.linear_wapirz1_motion_sensor_sensor
+Authorization: Bearer :hass-token
+Content-Type: application/json
