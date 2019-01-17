@@ -18,7 +18,7 @@ homeassistant:
     - type: trusted_networks
 
 http:
-  base_url: https://gnomesoup.duckdns.org:8123
+  base_url: !secret http_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
   trusted_networks:
@@ -71,7 +71,7 @@ sensor:
 # Text to speech
 tts:
   - platform: google
-    base_url: https://gnomesoup.duckdns.org
+    base_url: !secret http_tts
 
 # Cloud
 cloud:
