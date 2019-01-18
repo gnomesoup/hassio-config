@@ -1,0 +1,99 @@
+input_select:
+  camille_status:
+    name: "Camille's Status"
+    options:
+      - Home
+      - Away
+      - Asleep
+
+input_datetime:
+  alarm_time_camille:
+    name: "Set Camille's Alarm Time"
+    has_date: false
+    has_time: true
+
+input_boolean:
+  alarm_disable_camille:
+    name: "Disable Camille's Alarm"
+
+group:
+  lights_bedroom_camille:
+    name: Lights in Camille's Room
+    view: false
+    entities:
+      - light.bedroom_canopy
+      - light.grandma_s_lamp
+
+automation:
+  - alias: "Status Awake Camille"
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.motion_camille_bedroom
+          - group.lights_bedroom_camille
+        to: "on"
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("input_select.camille_status") == "Asleep" }}
+      - condition: template
+        value_template: >-
+          {{ states("sensor.time") >= states("input_datetime.alarm_time_camille")[0:5] and
+             states("sensor.time") <= "14:00" }}
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.camille_status
+          option: "Home"
+
+  - alias: Lights Bedroom Camille On
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.motion_camille_bedroom
+        to: "on"
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("input_select.camille_status") != "Asleep" }}
+    action:
+      - service: light.turn_on
+        data:
+          entity_id:
+          - group.lights_bedroom_camille
+
+script:
+  goodmorning_camille:
+    alias: Goodmorning Camille
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id:
+            - group.light_camille_bedroom
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.camilles_speaker
+          volume_level: 0.8
+
+  goodnight_camille:
+    alias: Good Night Camille
+    sequence:
+      - service: light.turn_off
+        data:
+          entity_id:
+          - group.lights_bedroom_camille
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Quiet"
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.camille_status
+          option: "Asleep"
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.camilles_speaker
+          volume_level: 0.3
+      - service: notify.notify
+        data:
+          title: "Camille"
+          message: "Bedtime"

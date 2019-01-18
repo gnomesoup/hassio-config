@@ -1,0 +1,60 @@
+automation:
+  - id: minimote_camille
+    alias: Camille's Minimote Control
+    trigger:
+      - platform: event
+        event_type: zwave.scene_activated
+        event_data:
+          entity_id:
+            zwave.aeotec_dsa03202_minimote_4
+    action:
+      - service: homeassistant.toggle
+        data_template:
+          entity_id: >
+            {% set map = {1: "script.minimote_camille_1",
+                          2: "script.minimote_camille_2",
+                          3: "script.minimote_camille_3",
+                          4: "script.minimote_camille_4",
+                          5: "script.minimote_camille_5",
+                          6: "script.minimote_camille_6",
+                          7: "script.minimote_camille_7",
+                          8: "script.minimote_camille_8"} %}
+            {{ map[trigger.event.data.scene_id|int] }}
+
+
+script:
+  minimote_camille_1:
+    alias: "Minimote Camille Push 1"
+    sequence:
+      - service: homeassistant.toggle
+        data:
+          entity_id: light.bedroom_canopy
+
+  minimote_camille_2:
+    alias: "Minimote Camille Hold 1"
+    sequence:
+      - service: homeassistant.toggle
+        data:
+          entity_id: light.bedroom_canopy
+
+  minimote_camille_3:
+    alias: "Minimote Camille Push 2"
+    sequence:
+      - service: homeassistant.toggle
+        data:
+          entity_id: light.grandma_s_lamp
+
+  minimote_camille_4:
+    alias: "Minimote Camille Hold 2"
+    sequence:
+      - service: homeassistant.toggle
+        data:
+          entity_id: light.grandma_s_lamp
+
+  minimote_camille_5:
+    alias: "Minimote Camille Press 3"
+    sequence:
+      - service: notify.ios_ergisch
+        data:
+          title: "Test"
+          message: "Camille's Button 3 Pressed"
