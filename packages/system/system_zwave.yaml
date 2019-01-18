@@ -1,0 +1,20 @@
+automation:
+  - alias: 'Z-Wave network starting'
+    trigger:
+      - platform: event
+        event_type: zwave.network_start
+    action:
+      - service: persistent_notification.create
+        data:
+          title: "Z-Wave"
+          message: "Z-Wave network is starting..."
+          notification_id: zwave
+
+  - alias: 'Z-Wave network ready'
+    trigger:
+      - platform: event
+        event_type: zwave.network_ready
+    action:
+      - service: persistent_notification.dismiss
+        data:
+          notification_id: zwave

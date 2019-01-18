@@ -14,11 +14,11 @@ automation:
             {% set map = {1: "script.minimote_camille_1",
                           2: "script.minimote_camille_2",
                           3: "script.minimote_camille_3",
-                          4: "script.minimote_camille_4",
+                          4: "script.minimote_camille_2",
                           5: "script.minimote_camille_5",
-                          6: "script.minimote_camille_6",
+                          6: "script.minimote_camille_2",
                           7: "script.minimote_camille_7",
-                          8: "script.minimote_camille_8"} %}
+                          8: "script.minimote_camille_2"} %}
             {{ map[trigger.event.data.scene_id|int] }}
 
 
@@ -31,11 +31,20 @@ script:
           entity_id: light.bedroom_canopy
 
   minimote_camille_2:
-    alias: "Minimote Camille Hold 1"
+    alias: "Minimote Camille Hold"
     sequence:
       - service: homeassistant.toggle
-        data:
-          entity_id: light.bedroom_canopy
+        data_template:
+          entity_id: >-
+            {% if is_state("input_select.camille_status", "Asleep") and
+               states("sensor.time") >= "05:00" %}
+               script.goodmorning_camille
+            {% elif is_state("input_select.camille_status", "Awake") and
+               states("sensor.time") >= "19:00" %}
+               script.goodnight_camille
+            {% else %}
+               script.lights_bedroom_camille_on
+            {% endif %}
 
   minimote_camille_3:
     alias: "Minimote Camille Push 2"
