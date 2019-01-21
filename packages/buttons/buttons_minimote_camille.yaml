@@ -33,17 +33,15 @@ script:
   minimote_camille_2:
     alias: "Minimote Camille Hold"
     sequence:
-      - service: homeassistant.toggle
+      - service: homeassistant.turn_on
         data_template:
           entity_id: >-
-            {% if is_state("input_select.camille_status", "Asleep") and
-               states("sensor.time") >= "05:00" %}
+            {% if is_state("input_select.camille_status", "Asleep") %}
                script.goodmorning_camille
-            {% elif is_state("input_select.camille_status", "Awake") and
-               states("sensor.time") >= "19:00" %}
+            {% elif is_state("input_select.camille_status", "Awake") %}
                script.goodnight_camille
             {% else %}
-               script.lights_bedroom_camille_on
+               automation.lights_bedroom_camille_on
             {% endif %}
 
   minimote_camille_3:
