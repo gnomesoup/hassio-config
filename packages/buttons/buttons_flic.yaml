@@ -1,4 +1,4 @@
-binary_sensor:
-  - platform: flic
-    discover: true
-    timeout: 3
+input_boolean:
+  flic_button_1:
+    name: Flic Button
+    icon: mdi:radio_button_checked

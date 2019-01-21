@@ -11,7 +11,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="3" name="" location="" basic="4" generic="17" specific="1" type="Multilevel Power Switch" listening="true" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="CacheLoad">
+	<Node id="3" name="" location="" basic="4" generic="17" specific="1" type="Multilevel Power Switch" listening="true" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Dynamic">
 		<Manufacturer id="0" name="">
 			<Product type="0" id="0" name="" />
 		</Manufacturer>
@@ -191,7 +191,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="18" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Complete">
+	<Node id="18" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Associations">
 		<Manufacturer id="14f" name="Linear">
 			<Product type="2001" id="102" name="WADWAZ-1 Door/Window Sensor" />
 		</Manufacturer>
@@ -303,9 +303,9 @@
 			</CommandClass>
 			<CommandClass id="50" name="COMMAND_CLASS_METER" version="3" request_flags="2" innif="true">
 				<Instance index="1" />
-				<Value type="decimal" genre="user" instance="1" index="0" label="Unknown" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="4.000" />
-				<Value type="decimal" genre="user" instance="1" index="1" label="Previous Reading" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="4.000" />
-				<Value type="int" genre="user" instance="1" index="2" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="198" />
+				<Value type="decimal" genre="user" instance="1" index="0" label="Unknown" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="6.300" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Previous Reading" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="6.300" />
+				<Value type="int" genre="user" instance="1" index="2" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="2666" />
 			</CommandClass>
 			<CommandClass id="90" name="COMMAND_CLASS_DEVICE_RESET_LOCALLY" version="1" request_flags="4" innif="true">
 				<Instance index="1" />
@@ -559,7 +559,7 @@
 			</CommandClass>
 			<CommandClass id="129" name="COMMAND_CLASS_CLOCK" version="1" request_flags="4" innif="true">
 				<Instance index="1" />
-				<Value type="list" genre="user" instance="1" index="0" label="Day" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" vindex="4" size="1">
+				<Value type="list" genre="user" instance="1" index="0" label="Day" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" vindex="0" size="1">
 					<Item label="Monday" value="1" />
 					<Item label="Tuesday" value="2" />
 					<Item label="Wednesday" value="3" />
@@ -568,8 +568,8 @@
 					<Item label="Saturday" value="6" />
 					<Item label="Sunday" value="7" />
 				</Value>
-				<Value type="byte" genre="user" instance="1" index="1" label="Hour" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="11" />
-				<Value type="byte" genre="user" instance="1" index="2" label="Minute" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="1" label="Hour" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="6" />
+				<Value type="byte" genre="user" instance="1" index="2" label="Minute" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="11" />
 			</CommandClass>
 			<CommandClass id="130" name="COMMAND_CLASS_HAIL" version="1" request_flags="4" after_mark="true" innif="true">
 				<Instance index="1" />
@@ -655,7 +655,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="31" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="CacheLoad">
+	<Node id="31" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Complete">
 		<Manufacturer id="14f" name="Linear">
 			<Product type="2002" id="203" name="WAPIRZ-1 Motion Sensor" />
 		</Manufacturer>
@@ -671,7 +671,7 @@
 			</CommandClass>
 			<CommandClass id="49" name="COMMAND_CLASS_SENSOR_MULTILEVEL" version="4" innif="true">
 				<Instance index="1" />
-				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="71" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="73" />
 			</CommandClass>
 			<CommandClass id="112" name="COMMAND_CLASS_CONFIGURATION" version="1" request_flags="4" innif="true">
 				<Instance index="1" />
@@ -755,9 +755,9 @@
 			</CommandClass>
 			<CommandClass id="50" name="COMMAND_CLASS_METER" version="3" request_flags="2" innif="true">
 				<Instance index="1" />
-				<Value type="decimal" genre="user" instance="1" index="0" label="Energy" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="2.000" />
-				<Value type="decimal" genre="user" instance="1" index="1" label="Previous Reading" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="2.000" />
-				<Value type="int" genre="user" instance="1" index="2" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3305" />
+				<Value type="decimal" genre="user" instance="1" index="0" label="Energy" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="2.300" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Previous Reading" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="2.300" />
+				<Value type="int" genre="user" instance="1" index="2" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="2666" />
 				<Value type="decimal" genre="user" instance="1" index="8" label="Power" units="W" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
 				<Value type="decimal" genre="user" instance="1" index="16" label="Voltage" units="V" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
 				<Value type="decimal" genre="user" instance="1" index="20" label="Current" units="A" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
@@ -1019,7 +1019,7 @@
 			</CommandClass>
 			<CommandClass id="129" name="COMMAND_CLASS_CLOCK" version="1" request_flags="4" innif="true">
 				<Instance index="1" />
-				<Value type="list" genre="user" instance="1" index="0" label="Day" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" vindex="4" size="1">
+				<Value type="list" genre="user" instance="1" index="0" label="Day" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" vindex="0" size="1">
 					<Item label="Monday" value="1" />
 					<Item label="Tuesday" value="2" />
 					<Item label="Wednesday" value="3" />
@@ -1029,7 +1029,7 @@
 					<Item label="Sunday" value="7" />
 				</Value>
 				<Value type="byte" genre="user" instance="1" index="1" label="Hour" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="11" />
-				<Value type="byte" genre="user" instance="1" index="2" label="Minute" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="46" />
+				<Value type="byte" genre="user" instance="1" index="2" label="Minute" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="30" />
 			</CommandClass>
 			<CommandClass id="130" name="COMMAND_CLASS_HAIL" version="1" request_flags="4" after_mark="true" innif="true">
 				<Instance index="1" />
@@ -1053,7 +1053,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="34" name="" location="" basic="1" generic="1" specific="1" type="Portable Remote Controller" listening="false" frequentListening="false" beaming="true" routing="false" max_baud_rate="40000" version="3" query_stage="CacheLoad">
+	<Node id="34" name="" location="" basic="1" generic="1" specific="1" type="Portable Remote Controller" listening="false" frequentListening="false" beaming="true" routing="false" max_baud_rate="40000" version="3" query_stage="Associations">
 		<Manufacturer id="86" name="Aeotec">
 			<Product type="1" id="3" name="DSA03202 Minimote" />
 		</Manufacturer>
@@ -1132,7 +1132,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="35" name="" location="" basic="1" generic="1" specific="1" type="Portable Remote Controller" listening="false" frequentListening="false" beaming="true" routing="false" max_baud_rate="40000" version="3" query_stage="CacheLoad">
+	<Node id="35" name="" location="" basic="1" generic="1" specific="1" type="Portable Remote Controller" listening="false" frequentListening="false" beaming="true" routing="false" max_baud_rate="40000" version="3" query_stage="Associations">
 		<Manufacturer id="86" name="Aeotec">
 			<Product type="1" id="3" name="DSA03202 Minimote" />
 		</Manufacturer>
@@ -1211,7 +1211,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="36" name="" location="" basic="4" generic="33" specific="1" roletype="6" devicetype="3079" nodetype="0" type="Routing Multilevel Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Complete">
+	<Node id="36" name="" location="" basic="4" generic="33" specific="1" roletype="6" devicetype="3079" nodetype="0" type="Routing Multilevel Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="CacheLoad">
 		<Manufacturer id="86" name="Aeotec">
 			<Product type="102" id="64" name="ZW100 MultiSensor 6" />
 		</Manufacturer>
@@ -1229,7 +1229,7 @@
 			</CommandClass>
 			<CommandClass id="49" name="COMMAND_CLASS_SENSOR_MULTILEVEL" version="5" innif="true">
 				<Instance index="1" />
-				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="69.8" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="71.0" />
 				<Value type="decimal" genre="user" instance="1" index="3" label="Luminance" units="lux" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0" />
 				<Value type="decimal" genre="user" instance="1" index="5" label="Relative Humidity" units="%" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="35" />
 				<Value type="decimal" genre="user" instance="1" index="27" label="Ultraviolet" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0" />
@@ -1457,7 +1457,7 @@
 			</CommandClass>
 			<CommandClass id="128" name="COMMAND_CLASS_BATTERY" version="1" request_flags="4" innif="true">
 				<Instance index="1" />
-				<Value type="byte" genre="user" instance="1" index="0" label="Battery Level" units="%" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="59" />
+				<Value type="byte" genre="user" instance="1" index="0" label="Battery Level" units="%" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="56" />
 			</CommandClass>
 			<CommandClass id="132" name="COMMAND_CLASS_WAKE_UP" version="2" request_flags="2" innif="true">
 				<Instance index="1" />
@@ -1483,7 +1483,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="37" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Complete">
+	<Node id="37" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="CacheLoad">
 		<Manufacturer id="14f" name="Linear">
 			<Product type="2002" id="203" name="WAPIRZ-1 Motion Sensor" />
 		</Manufacturer>
@@ -1499,7 +1499,7 @@
 			</CommandClass>
 			<CommandClass id="49" name="COMMAND_CLASS_SENSOR_MULTILEVEL" version="4" innif="true">
 				<Instance index="1" />
-				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="71" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="69" />
 			</CommandClass>
 			<CommandClass id="112" name="COMMAND_CLASS_CONFIGURATION" version="1" request_flags="4" innif="true">
 				<Instance index="1" />
@@ -1624,7 +1624,7 @@
 			</CommandClass>
 		</CommandClasses>
 	</Node>
-	<Node id="39" name="" location="" basic="0" generic="0" specific="0" type="" listening="true" frequentListening="false" beaming="false" routing="false" max_baud_rate="0" version="0" query_stage="Complete">
+	<Node id="39" name="" location="" basic="0" generic="0" specific="0" type="" listening="true" frequentListening="false" beaming="false" routing="false" max_baud_rate="0" version="0" query_stage="CacheLoad">
 		<Manufacturer id="0" name="">
 			<Product type="0" id="0" name="" />
 		</Manufacturer>
@@ -1657,12 +1657,12 @@
 			</CommandClass>
 			<CommandClass id="50" name="COMMAND_CLASS_METER" version="2" request_flags="2" innif="true">
 				<Instance index="1" />
-				<Value type="decimal" genre="user" instance="1" index="0" label="Energy" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
-				<Value type="decimal" genre="user" instance="1" index="1" label="Previous Reading" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
-				<Value type="int" genre="user" instance="1" index="2" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3304" />
+				<Value type="decimal" genre="user" instance="1" index="0" label="Energy" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.499" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Previous Reading" units="kWh" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.499" />
+				<Value type="int" genre="user" instance="1" index="2" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="2675" />
 				<Value type="decimal" genre="user" instance="1" index="8" label="Power" units="W" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
-				<Value type="decimal" genre="user" instance="1" index="9" label="Previous Reading" units="W" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.000" />
-				<Value type="int" genre="user" instance="1" index="10" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3304" />
+				<Value type="decimal" genre="user" instance="1" index="9" label="Previous Reading" units="W" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="0.499" />
+				<Value type="int" genre="user" instance="1" index="10" label="Interval" units="seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="2675" />
 				<Value type="bool" genre="user" instance="1" index="32" label="Exporting" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="False" />
 				<Value type="button" genre="system" instance="1" index="33" label="Reset" units="" read_only="false" write_only="true" verify_changes="false" poll_intensity="0" min="0" max="0" />
 			</CommandClass>
@@ -1741,6 +1741,127 @@
 				<Value type="string" genre="system" instance="1" index="0" label="Library Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="3" />
 				<Value type="string" genre="system" instance="1" index="1" label="Protocol Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="2.78" />
 				<Value type="string" genre="system" instance="1" index="2" label="Application Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="1.43" />
+			</CommandClass>
+		</CommandClasses>
+	</Node>
+	<Node id="41" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="Complete">
+		<Manufacturer id="14f" name="Linear">
+			<Product type="2002" id="203" name="WAPIRZ-1 Motion Sensor" />
+		</Manufacturer>
+		<CommandClasses>
+			<CommandClass id="32" name="COMMAND_CLASS_BASIC" version="1" request_flags="4" after_mark="true" mapping="48">
+				<Instance index="1" />
+			</CommandClass>
+			<CommandClass id="48" name="COMMAND_CLASS_SENSOR_BINARY" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="bool" genre="user" instance="1" index="0" label="Sensor" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="False" />
+				<SensorMap index="0" type="20" />
+				<SensorMap index="0" type="235" />
+			</CommandClass>
+			<CommandClass id="49" name="COMMAND_CLASS_SENSOR_MULTILEVEL" version="4" innif="true">
+				<Instance index="1" />
+				<Value type="decimal" genre="user" instance="1" index="1" label="Temperature" units="F" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="69" />
+			</CommandClass>
+			<CommandClass id="112" name="COMMAND_CLASS_CONFIGURATION" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="short" genre="config" instance="1" index="1" label="Re-trigger Wait Time" units="minutes" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="3">
+					<Help>By default, to conserve battery life, after the WAPIRZ-1 detects motion it cannot be re-triggered by motion again for 3 minutes. Each time motion is detected (even during this wait time) the 3 minute timer starts over. The length of the re-trigger wait time can be adjusted with this setting.</Help>
+				</Value>
+			</CommandClass>
+			<CommandClass id="113" name="COMMAND_CLASS_ALARM" version="2" request_flags="2" innif="true">
+				<Instance index="1" />
+				<Value type="byte" genre="user" instance="1" index="0" label="Alarm Type" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="1" label="Alarm Level" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="2" label="SourceNodeId" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="10" label="Burglar" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="2" />
+			</CommandClass>
+			<CommandClass id="114" name="COMMAND_CLASS_MANUFACTURER_SPECIFIC" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+			</CommandClass>
+			<CommandClass id="128" name="COMMAND_CLASS_BATTERY" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="byte" genre="user" instance="1" index="0" label="Battery Level" units="%" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="100" />
+			</CommandClass>
+			<CommandClass id="132" name="COMMAND_CLASS_WAKE_UP" version="2" request_flags="2" innif="true">
+				<Instance index="1" />
+				<Value type="int" genre="system" instance="1" index="0" label="Wake-up Interval" units="Seconds" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3600" />
+				<Value type="int" genre="system" instance="1" index="1" label="Minimum Wake-up Interval" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="600" />
+				<Value type="int" genre="system" instance="1" index="2" label="Maximum Wake-up Interval" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="604800" />
+				<Value type="int" genre="system" instance="1" index="3" label="Default Wake-up Interval" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3600" />
+				<Value type="int" genre="system" instance="1" index="4" label="Wake-up Interval Step" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="200" />
+			</CommandClass>
+			<CommandClass id="133" name="COMMAND_CLASS_ASSOCIATION" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Associations num_groups="1">
+					<Group index="1" max_associations="5" label="Lifeline" auto="true">
+						<Node id="1" />
+					</Group>
+				</Associations>
+			</CommandClass>
+			<CommandClass id="134" name="COMMAND_CLASS_VERSION" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="string" genre="system" instance="1" index="0" label="Library Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="6" />
+				<Value type="string" genre="system" instance="1" index="1" label="Protocol Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="3.67" />
+				<Value type="string" genre="system" instance="1" index="2" label="Application Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="4.84" />
+			</CommandClass>
+		</CommandClasses>
+	</Node>
+	<Node id="42" name="" location="" basic="4" generic="32" specific="1" type="Routing Binary Sensor" listening="false" frequentListening="false" beaming="true" routing="true" max_baud_rate="40000" version="4" query_stage="CacheLoad">
+		<Manufacturer id="14f" name="Linear">
+			<Product type="2001" id="102" name="WADWAZ-1 Door/Window Sensor" />
+		</Manufacturer>
+		<CommandClasses>
+			<CommandClass id="32" name="COMMAND_CLASS_BASIC" version="1" request_flags="4" after_mark="true" mapping="48" setasreport="true">
+				<Instance index="1" />
+			</CommandClass>
+			<CommandClass id="48" name="COMMAND_CLASS_SENSOR_BINARY" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="bool" genre="user" instance="1" index="0" label="Sensor" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="True" />
+				<SensorMap index="0" type="23" />
+			</CommandClass>
+			<CommandClass id="112" name="COMMAND_CLASS_CONFIGURATION" version="1">
+				<Instance index="1" />
+				<Value type="list" genre="config" instance="1" index="1" label="External Switch" units="" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" vindex="1" size="1">
+					<Help>External Switch Status</Help>
+					<Item label="On" value="255" />
+					<Item label="Off" value="0" />
+				</Value>
+			</CommandClass>
+			<CommandClass id="113" name="COMMAND_CLASS_ALARM" version="2" request_flags="2" getsupported="false" innif="true">
+				<Instance index="1" />
+				<Value type="byte" genre="user" instance="1" index="0" label="Alarm Type" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="1" label="Alarm Level" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="2" label="SourceNodeId" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+				<Value type="byte" genre="user" instance="1" index="10" label="Burglar" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="0" />
+			</CommandClass>
+			<CommandClass id="114" name="COMMAND_CLASS_MANUFACTURER_SPECIFIC" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+			</CommandClass>
+			<CommandClass id="128" name="COMMAND_CLASS_BATTERY" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="byte" genre="user" instance="1" index="0" label="Battery Level" units="%" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="255" value="100" />
+			</CommandClass>
+			<CommandClass id="132" name="COMMAND_CLASS_WAKE_UP" version="2" request_flags="2" innif="true">
+				<Instance index="1" />
+				<Value type="int" genre="system" instance="1" index="0" label="Wake-up Interval" units="Seconds" read_only="false" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3600" />
+				<Value type="int" genre="system" instance="1" index="1" label="Minimum Wake-up Interval" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="600" />
+				<Value type="int" genre="system" instance="1" index="2" label="Maximum Wake-up Interval" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="604800" />
+				<Value type="int" genre="system" instance="1" index="3" label="Default Wake-up Interval" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="3600" />
+				<Value type="int" genre="system" instance="1" index="4" label="Wake-up Interval Step" units="Seconds" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="-2147483648" max="2147483647" value="200" />
+			</CommandClass>
+			<CommandClass id="133" name="COMMAND_CLASS_ASSOCIATION" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Associations num_groups="1">
+					<Group index="1" max_associations="5" label="All Reports" auto="true">
+						<Node id="1" />
+					</Group>
+				</Associations>
+			</CommandClass>
+			<CommandClass id="134" name="COMMAND_CLASS_VERSION" version="1" request_flags="4" innif="true">
+				<Instance index="1" />
+				<Value type="string" genre="system" instance="1" index="0" label="Library Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="6" />
+				<Value type="string" genre="system" instance="1" index="1" label="Protocol Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="3.67" />
+				<Value type="string" genre="system" instance="1" index="2" label="Application Version" units="" read_only="true" write_only="false" verify_changes="false" poll_intensity="0" min="0" max="0" value="4.84" />
 			</CommandClass>
 		</CommandClasses>
 	</Node>

@@ -2,5 +2,5 @@ device_tracker:
   - platform: googlehome
     host: !secret google_home_hub_ip
     new_device_defaults:
-      track_new_devices: true
+      track_new_devices: false
       hide_if_away: false

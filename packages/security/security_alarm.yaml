@@ -66,3 +66,30 @@ automation:
           title: "Test Alarm"
           message: >-
             Home set to {{ states("alarm_control_panel.home_alarm") }}
+
+  ## Set with flic button
+  - alias: Alarm Arm Night Flic
+    trigger:
+      - platform: state
+        entity_id: input_boolean.flic_button_1
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("alarm_control_panel.home_alarm") == "disarmed" }}
+    action:
+      - service: alarm_control_panel.alarm_arm_night
+        entity_id: alarm_control_panel.home_alarm
+      - service: media_player.media_pause
+        entity_id: media_player.bedroom_speaker
+
+  - alias: Alarm Disarm Flic
+    trigger:
+      - platform: state
+        entity_id: input_boolean.flic_button_1
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("alarm_control_panel.home_alarm") != "disarmed" }}
+    action:
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.home_alarm

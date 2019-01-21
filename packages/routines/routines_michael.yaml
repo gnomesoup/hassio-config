@@ -1,0 +1,7 @@
+input_select:
+  michael_status:
+    name: "Michael's Status"
+    options:
+      - Home
+      - Away
+      - Asleep
