@@ -12,6 +12,11 @@ GET :hass-url/api/services
 Authorization: Bearer :hass-token
 Content-Type: application/json
 
+# events
+GET :hass-url/api/events
+Authorization: Bearer :hass-token
+Content-Type: application/json
+
 # state entities only
 POST :hass-url/api/template
 Authorization: Bearer :hass-token
