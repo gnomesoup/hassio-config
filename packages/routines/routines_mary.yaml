@@ -38,3 +38,33 @@ automation:
         data:
           entity_id: input_select.mary_status
           option: "Home"
+
+  - alias: "Mary Home Away"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_front_door_7
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.mary_status
+          option: >-
+            {% if states("input_select.mary_status") != "Away" %}
+            Away
+            {% else %}
+            Home
+            {% endif %}
+
+  - alias: "Mary Home Asleep"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_master_bedroom_7
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.mary_status
+          option: >-
+            {% if states("input_select.mary_status") != "Asleep" %}
+            Asleep
+            {% else %}
+            Home
+            {% endif %}

@@ -40,49 +40,9 @@ automation:
             {% set map = {1: "input_boolean.minimote_camille_1",
                           2: "input_boolean.minimote_camille_2",
                           3: "input_boolean.minimote_camille_3",
-                          4: "input_boolean.minimote_camille_2",
+                          4: "input_boolean.minimote_camille_4",
                           5: "input_boolean.minimote_camille_5",
-                          6: "input_boolean.minimote_camille_2",
+                          6: "input_boolean.minimote_camille_6",
                           7: "input_boolean.minimote_camille_7",
-                          8: "input_boolean.minimote_camille_2"} %}
+                          8: "input_boolean.minimote_camille_8"} %}
             {{ map[trigger.event.data.scene_id|int] }}
-
-
-  - alias: "Minimote Camille Push 1"
-    trigger:
-      - platform: state
-        entity_id: input_boolean.minimote_camille_1
-    action:
-      - service: homeassistant.toggle
-        data:
-          entity_id: light.bedroom_canopy
-
-  - alias: "Minimote Camille Hold"
-    trigger:
-      - platform: state
-        entity_id:
-          - input_boolean.minimote_camille_2
-          - input_boolean.minimote_camille_4
-          - input_boolean.minimote_camille_6
-          - input_boolean.minimote_camille_8
-    action:
-      - service: homeassistant.toggle
-        data_template:
-          entity_id: >-
-            {% if is_state("input_select.camille_status", "Asleep") %}
-              {% set runScript = "script.goodmorning_camille" %}
-            {% elif is_state("input_select.camille_status", "Awake") %}
-                 {% set runScript = "script.goodnight_camille" %}
-            {% else %}
-                 {% set runScript = "automation.lights_camille_on" %}
-            {% endif %}
-            {{ runScript }}
-
-  - alias: "Minimote Camille Push 2"
-    trigger:
-      - platform: state
-        entity_id: input_boolean.minimote_camille_3
-    action:
-      - service: homeassistant.toggle
-        data:
-          entity_id: light.grandma_s_lamp

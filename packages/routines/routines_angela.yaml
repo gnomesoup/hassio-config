@@ -5,3 +5,34 @@ input_select:
       - Home
       - Away
       - Asleep
+
+automation:
+  - alias: "Angela Home Away"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_front_door_3
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.angela_status
+          option: >-
+            {% if states("input_select.angela_status") != "Away" %}
+            Away
+            {% else %}
+            Home
+            {% endif %}
+
+  - alias: "Angela Home Asleep"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_master_bedroom_3
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.angela_status
+          option: >-
+            {% if states("input_select.angela_status") != "Asleep" %}
+            Asleep
+            {% else %}
+            Home
+            {% endif %}

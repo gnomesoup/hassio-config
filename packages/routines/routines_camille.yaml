@@ -49,9 +49,10 @@ automation:
         entity_id: script.goodmorning_camille
       - service: media_player.play_media
         data:
-          entity_id: media_player.camilles_speaker
+          entity_id: media_player.camille_s_speaker
           media_content_id: "https://dl.dropboxusercontent.com/s/mpdyuzl5svyuxmq/Rooster%20Crowing-SoundBible.com-43612401.mp3"
           media_content_type: "music"
+
   - alias: "Status Set Camille Awake"
     trigger:
       - platform: state
@@ -88,6 +89,60 @@ automation:
           entity_id:
           - group.lights_bedroom_camille
 
+  - alias: "Minimote Camille Push 1"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_camille_1
+    action:
+      - service: homeassistant.toggle
+        data:
+          entity_id: light.bedroom_canopy
+
+  - alias: "Minimote Camille Hold"
+    trigger:
+      - platform: state
+        entity_id:
+          - input_boolean.minimote_camille_2
+          - input_boolean.minimote_camille_4
+          - input_boolean.minimote_camille_6
+          - input_boolean.minimote_camille_8
+    action:
+      - service: homeassistant.toggle
+        data_template:
+          entity_id: >-
+            {% if is_state("input_select.camille_status", "Asleep") %}
+              {% set runScript = "script.goodmorning_camille" %}
+            {% elif is_state("input_select.camille_status", "Home") %}
+              {% set runScript = "script.goodnight_camille" %}
+            {% else %}
+              {% set runScript = "automation.lights_camille_on" %}
+            {% endif %}
+            {{ runScript }}
+
+  - alias: "Minimote Camille Push 2"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_camille_3
+    action:
+      - service: homeassistant.toggle
+        data:
+          entity_id: light.grandma_s_lamp
+
+  - alias: "Camille Home Away"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_front_door_5
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.camille_status
+          option: >-
+            {% if states("input_select.camille_status") != "Away" %}
+            Away
+            {% else %}
+            Home
+            {% endif %}
+
 script:
   goodmorning_camille:
     alias: Goodmorning Camille
@@ -98,7 +153,7 @@ script:
             - group.light_camille_bedroom
       - service: media_player.volume_set
         data:
-          entity_id: media_player.camilles_speaker
+          entity_id: media_player.camille_s_speaker
           volume_level: 0.8
 
   goodnight_camille:
@@ -110,15 +165,11 @@ script:
           - group.lights_bedroom_camille
       - service: input_select.select_option
         data:
-          entity_id: input_select.home_mode
-          option: "Quiet"
-      - service: input_select.select_option
-        data:
           entity_id: input_select.camille_status
           option: "Asleep"
       - service: media_player.volume_set
         data:
-          entity_id: media_player.camilles_speaker
+          entity_id: media_player.camille_s_speaker
           volume_level: 0.3
       - service: notify.notify
         data:
