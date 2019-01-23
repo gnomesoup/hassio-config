@@ -38,16 +38,20 @@ automation:
         value_template: >-
           {{ states("input_select.mary_status") == "Asleep" }}
     action:
-      - service: notify.ios_ergisch
+      - service: notify.notify
         data:
           title: "Motion Alert"
           message: "Mary's Bedroom"
 
-  - alias: Notify Motion Hallway
+  - alias: Notify All Motion
     trigger:
       - platform: state
         entity_id:
+          - binary_sensor.motion_camille_bedroom
           - binary_sensor.motion_hallway
+          - binary_sensor.motion_living_room
+          - binary_sensor.motion_mary_bedroom
+          - binary_sensor.motion_master_bedroom
         to: "on"
     condition:
       - condition: state
@@ -57,4 +61,5 @@ automation:
       - service: notify.ios_ergisch
         data:
           title: "Motion Alert"
-          message: "Hallway"
+          message: >-
+            {{ state_attr(trigger.entity_id, "friendly_name") }}

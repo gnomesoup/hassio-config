@@ -14,13 +14,17 @@ input_boolean:
     name: Alarm Control Panel Trigger Test
 
 automation:
-  - id: alarm_control_panel_test
-    alias: Alarm Control Panel Test
+  - alias: Alarm Control Panel Trigger All
     trigger:
       - platform: state
         entity_id:
           - input_boolean.alarm_control_panel_trigger
+          - binary_sensor.door_sensor_2
         to: "on"
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("alarm_control_panel.home_alarm") != "disarmed" }}
     action:
       - service: alarm_control_panel.alarm_trigger
         entity_id: alarm_control_panel.home_alarm
@@ -32,10 +36,31 @@ automation:
         entity_id: alarm_control_panel.home_alarm
         to: "triggered"
     action:
-      - service: notify.ios_ergisch
+      - service: media_player.play_media
         data:
-          title: "Test Alarm"
+          entity_id:
+            - media_player.bedroom_speaker
+            - media_player.living_room_display
+          media_content_id: "https://dl.dropboxusercontent.com/s/mpdyuzl5svyuxmq/Rooster%20Crowing-SoundBible.com-43612401.mp3"
+          media_content_type: "music"
+      - service: notify.notify
+        data:
+          title: "Alarm"
           message: "Triggered"
+
+  - alias: "Alarm Control Panel Disarm From Trigger"
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        from: "triggered"
+        to: "disarmed"
+    action:
+      - service: media_player.media_pause
+        data:
+          entity_id:
+            - media_player.bedroom_speaker
+            - media_player.living_room_display
+
 
   - id: alarm_control_panel_disarm
     alias: Alarm Control Panel Disarm
@@ -43,6 +68,10 @@ automation:
       - platform: state
         entity_id: input_boolean.alarm_control_panel_disarm
         to: "on"
+      - platform: state
+        entity_id:
+          - input_boolean.minimote_front_door_8
+          - input_boolean.minimote_master_bedroom_8
     condition:
       - condition: template
         value_template: >-
@@ -52,7 +81,7 @@ automation:
         entity_id: alarm_control_panel.home_alarm
       - service: notify.ios_ergisch
         data:
-          title: "Test Alarm"
+          title: "Alarm"
           message: "Disarmed"
 
   - id: alarm_contry_panel_notify_state
