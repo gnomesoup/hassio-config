@@ -59,7 +59,7 @@ automation:
         state: "armed_night"
     action:
       - service: notify.ios_ergisch
-        data:
+        data_template:
           title: "Motion Alert"
           message: >-
             {{ state_attr(trigger.entity_id, "friendly_name") }}

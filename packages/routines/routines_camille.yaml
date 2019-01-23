@@ -143,6 +143,21 @@ automation:
             Home
             {% endif %}
 
+  - alias: "Camille Home Asleep"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_master_bedroom_5
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.camille_status
+          option: >-
+            {% if states("input_select.camille_status") != "Asleep" %}
+            Asleep
+            {% else %}
+            Home
+            {% endif %}
+
 script:
   goodmorning_camille:
     alias: Goodmorning Camille

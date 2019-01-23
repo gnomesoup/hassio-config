@@ -14,6 +14,7 @@ automation:
     condition:
       - condition: time
         after: "18:00:00"
+        before: "22:00:00"
       - condition: state
         entity_id: intput_select.mary_status
         state: "Home"
@@ -29,7 +30,8 @@ automation:
         entity_id: switch.aeotec_zw111_nano_dimmer_switch_2
     condition:
       - condition: time
-        after: "07:00:00"
+        after: "06:30:00"
+        before: "11:00:00"
       - condition: state
         entity_id: intput_select.mary_status
         state: "Asleep"
