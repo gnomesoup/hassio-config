@@ -1,5 +1,4 @@
 sensor:
-
   - platform: time_date
     display_options:
       - "time"
@@ -13,3 +12,10 @@ sensor:
           {% set currentTime = strptime(states.sensor.date.state, "%Y-%m-%d") %}
           {{ currentTime.strftime("%A") }}
         icon_template: "mdi:calendar"
+
+  - platform: season
+    type: astronomical
+
+binary_sensor:
+  - platform: workday
+    country: US
