@@ -79,10 +79,10 @@ automation:
     action:
       - service: alarm_control_panel.alarm_disarm
         entity_id: alarm_control_panel.home_alarm
-      - service: notify.ios_ergisch
-        data:
-          title: "Alarm"
-          message: "Disarmed"
+      # - service: notify.ios_ergisch
+      #   data:
+      #     title: "Alarm"
+      #     message: "Disarmed"
 
   - id: alarm_contry_panel_notify_state
     alias: Alarm Control Panel
@@ -92,9 +92,15 @@ automation:
     action:
       - service: notify.ios_ergisch
         data:
-          title: "Test Alarm"
+          title: "Alarm"
           message: >-
-            Home set to {{ states("alarm_control_panel.home_alarm") }}
+            {% set map = {"disarmed": "Disarmed",
+                          "pending": "Pending",
+                          "armed_away": "Away",
+                          "armed_home": "Home",
+                          "armed_night": "Night",
+                          "triggered": "Triggered"} %}
+            State is {{ map[states("alarm_control_panel.home_alarm")] }}
 
   ## Set with flic button
   - alias: Alarm Arm Night Flic
