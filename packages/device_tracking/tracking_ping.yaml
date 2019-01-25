@@ -1,0 +1,5 @@
+device_tracker:
+  - platform: ping
+    hosts:
+      ping_ergisch: !secret ip_ergisch
+      ping_angela_iphone: !secret ip_angela_iphone

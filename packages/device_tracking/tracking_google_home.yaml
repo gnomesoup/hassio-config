@@ -1,6 +1,21 @@
 device_tracker:
   - platform: googlehome
-    host: !secret google_home_hub_ip
+    host: !secret ip_google_home_hub
     new_device_defaults:
       track_new_devices: false
       hide_if_away: false
+  - platform: googlehome
+    host: !secret ip_google_mini_1
+    new_device_defaults:
+      track_new_devices: true
+      hide_if_away: false
+  - platform: googlehome
+    host: !secret ip_google_mini_2
+    new_device_defaults:
+      track_new_devices: true
+      hide_if_away: false
+  # - platform: googlehome
+    # host: !secret ip_google_mini_3
+    # new_device_defaults:
+    #   track_new_devices: true
+    #   hide_if_away: false
