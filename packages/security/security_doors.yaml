@@ -29,6 +29,16 @@ input_boolean:
     initial: off
 
 automation:
+  - alias: "Turn On Door Delay"
+    trigger:
+      - platform: state
+        entity_id:
+          - input_boolean.minimote_front_door_8
+          - input_boolean.minimote_master_bedroom_8
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.door_alert_delay
+
   - alias: "Reset Door Delay"
     trigger:
       - platform: state
@@ -37,8 +47,6 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.reset_door_delay
-      - service: alarm_control_panel.alarm_disarm
-        entity_id: alarm_control_panel.home_alarm
 
   - alias: Notify Door
     trigger:
