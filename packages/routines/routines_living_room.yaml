@@ -1,3 +1,11 @@
+input_select:
+  home_status:
+    name: "Home Status"
+    options:
+      - Normal
+      - Quiet
+      - Night
+
 group:
   lights_living_room:
     name: Living Room Lights
@@ -5,6 +13,23 @@ group:
     entities:
       - light.living_room_lamp
       - light.accordian_lamp
+
+automation:
+  alias: Wakeup Living Room
+  trigger:
+    - platform: state
+      entity_id:
+        - input_select.camille_status
+        - input_select.michael_status
+      to: "Home"
+      from: "Asleep"
+  condition:
+    - condition: time
+      after: '05:00:00'
+      before: '10:00:00'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: script.goodmorning_living_room
 
 script:
   tv_time:
@@ -36,3 +61,18 @@ script:
           entity_id:
             - light.aeotec_zw111_nano_dimmer_level
             - light.aeotec_zw111_nano_dimmer_level_3
+
+  goodmorning_living_room:
+    alias: Goodmorning Living Room
+    sequence:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_tv
+          volume_level: 0.3
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.aeotec_zw111_nano_dimmer_level
+            - light.aeotec_zw111_nano_dimmer_level_3
+            - group.lights_living_room
+          brightness: 255

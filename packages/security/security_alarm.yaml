@@ -29,8 +29,25 @@ automation:
       - service: alarm_control_panel.alarm_trigger
         entity_id: alarm_control_panel.home_alarm
 
-  - id: alarm_control_panel_notify
-    alias: Alarm Control Panel Send Notification
+  - alias: Alarm Marys Door
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_sensor_1
+        to: 'on'
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("alarm_control_panel.home_alarm") == "armed_night" }}
+    action:
+      - service: media_player.play_media
+        data:
+          entity_id:
+            - media_player.bedroom_speaker
+            - media_player.living_room_display
+          media_content_id: "https://dl.dropboxusercontent.com/s/mpdyuzl5svyuxmq/Rooster%20Crowing-SoundBible.com-43612401.mp3"
+          media_content_type: "music"
+
+  - alias: Alarm Control Panel Send Notification
     trigger:
       - platform: state
         entity_id: alarm_control_panel.home_alarm
@@ -43,6 +60,9 @@ automation:
             - media_player.living_room_display
           media_content_id: "https://dl.dropboxusercontent.com/s/mpdyuzl5svyuxmq/Rooster%20Crowing-SoundBible.com-43612401.mp3"
           media_content_type: "music"
+      - service: homeassistant.turn_on
+        data:
+          entity_id: switch.linear_unknown_type_2005_id_0503_switch
       - service: notify.notify
         data:
           title: "Alarm"
@@ -60,10 +80,11 @@ automation:
           entity_id:
             - media_player.bedroom_speaker
             - media_player.living_room_display
+      - service: homeassistant.turn_off
+        data:
+          entity_id: switch.linear_unknown_type_2005_id_0503_switch
 
-
-  - id: alarm_control_panel_disarm
-    alias: Alarm Control Panel Disarm
+  - alias: Alarm Control Panel Disarm
     trigger:
       - platform: state
         entity_id: input_boolean.alarm_control_panel_disarm
@@ -79,10 +100,6 @@ automation:
     action:
       - service: alarm_control_panel.alarm_disarm
         entity_id: alarm_control_panel.home_alarm
-      # - service: notify.ios_ergisch
-      #   data:
-      #     title: "Alarm"
-      #     message: "Disarmed"
 
   - id: alarm_contry_panel_notify_state
     alias: Alarm Control Panel
