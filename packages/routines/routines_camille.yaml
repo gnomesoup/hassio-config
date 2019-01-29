@@ -128,6 +128,15 @@ automation:
         data:
           entity_id: light.grandma_s_lamp
 
+  - alias: "Minimote Camille Push 3"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_camille_5
+    action:
+      - service: homeassistant.toggle
+        data:
+          entity_id: switch.aeotec_dsc06106_smart_energy_switch_switch_2
+
   - alias: "Camille Home Away"
     trigger:
       - platform: state
@@ -162,10 +171,11 @@ script:
   goodmorning_camille:
     alias: Goodmorning Camille
     sequence:
-      - service: light.turn_on
+      - service: homeassistant.turn_on
         data:
           entity_id:
             - group.light_camille_bedroom
+            - switch.aeotec_dsc06106_smart_energy_switch_switch_2
       - service: media_player.volume_set
         data:
           entity_id: media_player.camille_s_speaker
@@ -174,10 +184,11 @@ script:
   goodnight_camille:
     alias: Good Night Camille
     sequence:
-      - service: light.turn_off
+      - service: homeassistant.turn_off
         data:
           entity_id:
           - group.lights_bedroom_camille
+          - switch.aeotec_dsc06106_smart_energy_switch_switch_2
       - service: input_select.select_option
         data:
           entity_id: input_select.camille_status
