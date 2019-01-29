@@ -133,6 +133,12 @@ automation:
         entity_id: alarm_control_panel.home_alarm
       - service: media_player.media_pause
         entity_id: media_player.bedroom_speaker
+      - service: input_select.select_option
+        data:
+          entity_id:
+            - input_select.angela_status
+            - input_select.michael_status
+          option: "Asleep"
 
   - alias: Alarm Disarm Flic
     trigger:
@@ -145,3 +151,7 @@ automation:
     action:
       - service: alarm_control_panel.alarm_disarm
         entity_id: alarm_control_panel.home_alarm
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.michael_status
+          option: "Home"
