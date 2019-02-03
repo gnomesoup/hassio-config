@@ -36,3 +36,18 @@ automation:
             {% else %}
             Home
             {% endif %}
+
+  - alias: "Angela Alarm Status Asleep"
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: 'armed_night'
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("input_select.angela_status") == "Home" }}
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.angela_status
+          option: 'Asleep'

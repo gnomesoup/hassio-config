@@ -36,3 +36,33 @@ automation:
             {% else %}
             Home
             {% endif %}
+
+  - alias: "Michael Alarm Status Asleep"
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: 'armed_night'
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("input_select.michael_status") == "Home" }}
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.michael_status
+          option: 'Asleep'
+
+  - alias: "Michael Alarm Status Awake"
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: 'disarmed'
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("input_select.michael_status") == "Asleep" }}
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.michael_status
+          option: 'Home'

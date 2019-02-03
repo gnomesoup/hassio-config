@@ -187,8 +187,8 @@ script:
       - service: homeassistant.turn_off
         data:
           entity_id:
-          - group.lights_bedroom_camille
-          - switch.aeotec_dsc06106_smart_energy_switch_switch_2
+            - group.lights_bedroom_camille
+            - switch.aeotec_dsc06106_smart_energy_switch_switch_2
       - service: input_select.select_option
         data:
           entity_id: input_select.camille_status

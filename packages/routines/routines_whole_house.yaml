@@ -1,0 +1,60 @@
+group:
+  lights_whole_house:
+    name: Lights in the entire house
+    view: false
+    entities:
+      - light.accordian_lamp
+      - light.aeotec_zw111_nano_dimmer_level
+      - light.aeotec_zw111_nano_dimmer_level_2
+      - light.aeotec_zw111_nano_dimmer_level_3
+      - light.bedroom_canopy
+      - light.bedroom_lamp
+      - light.grandma_s_lamp
+      - light.living_room_lamp
+      - light.metal_lamp
+  switches_whole_house:
+    name: Switches in the entire house
+    view: false
+    entities:
+      - switch.aeotec_dsc06106_smart_energy_switch_switch_2
+  media_whole_house:
+    name: Media devices in the entire house
+    view: false
+    entities:
+      - media_player.bedroom_speaker
+      - media_player.camille_s_speaker
+      - media_player.living_room_display
+      - media_player.living_room_tv
+      - media_player.mary_s_speaker
+
+automation:
+  - alias: 'Alarm Night Turn Off Everything'
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: 'armed_night'
+    action:
+      - service: home_assistant.turn_off
+        data:
+          entity_id:
+            - group.lights_whole_house
+            - group.switches_whole_house
+      - service: media_player.media_pause
+        entity_id:
+          - media_player.bedroom_speaker
+          - media_player.living_room_tv
+          - media_player.living_room_display
+
+  - alias: 'Alarm Away Turn Off Everything'
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: 'armed_away'
+    action:
+      - service: home_assistant.turn_off
+        data:
+          entity_id:
+            - group.lights_whole_house
+            - group.switches_whole_house
+      - service: media_player.media_pause
+        entity_id: group.media_whole_house

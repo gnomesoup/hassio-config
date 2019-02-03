@@ -1,6 +1,6 @@
-notify:
-  - name: slack_security
-    platform: slack
-    api_key: xoxp-525360355268-524924154449-524797744864-5470e0132b0b611234ea8d75560a23e7
-    default_channel: "#general"
+# notify:
+#   - name: slack_security
+#     platform: slack
+#     api_key: xoxp-525360355268-524924154449-524797744864-5470e0132b0b611234ea8d75560a23e7
+#     default_channel: "#general"
     # username: HomeAssistantNotify

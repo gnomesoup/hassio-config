@@ -1,5 +1,0 @@
-device_tracker:
-  platform: ping
-  hosts:
-    ping_ergisch: 192.168.40.247
-    ping_angela_iphone: 192.168.40.195
