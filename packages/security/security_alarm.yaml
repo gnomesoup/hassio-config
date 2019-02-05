@@ -131,8 +131,6 @@ automation:
     action:
       - service: alarm_control_panel.alarm_arm_night
         entity_id: alarm_control_panel.home_alarm
-      - service: media_player.media_pause
-        entity_id: media_player.bedroom_speaker
 
   - alias: Alarm Disarm Flic
     trigger:
