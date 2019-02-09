@@ -10,9 +10,9 @@
   (interactive)
   (save-excursion
     (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
-                                             "~/HomeassistantConfig/hass-token.txt"))
+                                             "~/hassio-config/hass-token.txt"))
           (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
-                                           "~/HomeassistantConfig/hass-token.txt"))
+                                           "~/hassio-config/hass-token.txt"))
           (curl-command (concat "curl \"-i\" \"-H\" \"Content-Type: application/json\" \"-H\" \"Authorization: Bearer "
                                 hass-token
                                 "\" \"-XPOST\" \""
@@ -29,9 +29,9 @@
   (interactive)
   (save-excursion
     (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
-                                                "~/HomeassistantConfig/hass-token.txt"))
+                                                "~/hassio-config/hass-token.txt"))
            (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
-                                              "~/HomeassistantConfig/hass-token.txt"))
+                                              "~/hassio-config/hass-token.txt"))
            (curl-command (concat "curl \"-i\" \"-H\" \"Content-Type: application/json\" "
                                  "\"-H\" \"Authorization: Bearer "
                                  hass-token
