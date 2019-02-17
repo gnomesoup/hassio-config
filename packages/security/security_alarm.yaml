@@ -92,7 +92,6 @@ automation:
       - platform: state
         entity_id:
           - input_boolean.minimote_front_door_8
-          - input_boolean.minimote_master_bedroom_8
     condition:
       - condition: template
         value_template: >-
@@ -101,8 +100,7 @@ automation:
       - service: alarm_control_panel.alarm_disarm
         entity_id: alarm_control_panel.home_alarm
 
-  - id: alarm_contry_panel_notify_state
-    alias: Alarm Control Panel
+  - alias: Alarm Control Panel
     trigger:
       - platform: state
         entity_id: alarm_control_panel.home_alarm
@@ -117,13 +115,14 @@ automation:
                           "armed_home": "Home",
                           "armed_night": "Night",
                           "triggered": "Triggered"} %}
-            State is {{ map[states("alarm_control_panel.home_alarm")] }}
+            Set to {{ map[states("alarm_control_panel.home_alarm")] }}
 
-  ## Set with flic button
-  - alias: Alarm Arm Night Flic
+  - alias: Alarm Arm Night Buttons
     trigger:
       - platform: state
         entity_id: input_boolean.flic_button_1
+      - platform: state
+        entity_id: input_boolean.minimote_master_bedroom_2
     condition:
       - condition: template
         value_template: >-
@@ -132,10 +131,24 @@ automation:
       - service: alarm_control_panel.alarm_arm_night
         entity_id: alarm_control_panel.home_alarm
 
-  - alias: Alarm Disarm Flic
+  - alias: Alarm Arm Night Buttons
+    trigger:
+      - platform: state
+        entity_id: input_boolean.minimote_front_door_2
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states("alarm_control_panel.home_alarm") == "disarmed" }}
+    action:
+      - service: alarm_control_panel.alarm_arm_away
+        entity_id: alarm_control_panel.home_alarm
+
+  - alias: Alarm Disarm Buttons
     trigger:
       - platform: state
         entity_id: input_boolean.flic_button_1
+      - platform: state
+        entity_id: input_boolean.minimote_master_bedroom_8
     condition:
       - condition: template
         value_template: >-

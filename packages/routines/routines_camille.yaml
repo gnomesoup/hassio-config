@@ -196,7 +196,7 @@ script:
       - service: media_player.volume_set
         data:
           entity_id: media_player.camille_s_speaker
-          volume_level: 0.3
+          volume_level: 0.5
       - service: notify.notify
         data:
           title: "Camille"

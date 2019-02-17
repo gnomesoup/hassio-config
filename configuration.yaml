@@ -24,7 +24,7 @@ http:
   trusted_networks:
     - 192.168.40.247
 
-# introduction:
+system_health:
 
 # Enables the frontend
 frontend:
