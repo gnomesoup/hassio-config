@@ -43,3 +43,22 @@
       )
     )
   )
+
+(defun mjp/hassio-get-state(entity_id)
+  "Get the state properties of the entity provided"
+  (interactive "sentity_id: ")
+  (save-excursion
+    (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
+                                                "~/hassio-config/hass-token.txt"))
+           (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
+                                              "~/hassio-config/hass-token.txt"))
+           (curl-command (concat "curl \"-H\" \"Content-Type: application/json\" "
+                                 "\"-H\" \"Authorization: Bearer "
+                                 hass-token
+                                 "\" \"-X GET\" \""
+                                 hass-url
+                                 "/api/states/"
+                                 entity_id
+                                 "\"")))
+      (async-shell-command curl-command "*hassio*" "*httperror*")
+      (message ))))

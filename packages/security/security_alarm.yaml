@@ -2,10 +2,16 @@ alarm_control_panel:
   - platform: manual
     name: Home Alarm
     pending_time: 15
-    delay_time: 30
-    trigger_time: 10
+    delay_time: 5
+    trigger_time: 60
     disarmed:
       trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+    armed_night:
+      pending_time: 0
+      delay_time: 0
 
 input_boolean:
   alarm_control_panel_disarm:
@@ -25,6 +31,24 @@ automation:
       - condition: template
         value_template: >-
           {{ states("alarm_control_panel.home_alarm") != "disarmed" }}
+    action:
+      - service: alarm_control_panel.alarm_trigger
+        entity_id: alarm_control_panel.home_alarm
+
+  - alias: Alarm Control Panel Trigger Away
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.motion_camille_bedroom
+          - binary_sensor.motion_hallway
+          - binary_sensor.motion_living_room
+          - binary_sensor.motion_mary_bedroom
+          - binary_sensor.motion_master_bedroom
+          - binary_sensor.door_sensor_3
+    condition:
+      - condition: template
+        value_template: >-
+         {{ states("alarm_control_panel.home_alarm") == "armed_away" }}
     action:
       - service: alarm_control_panel.alarm_trigger
         entity_id: alarm_control_panel.home_alarm
