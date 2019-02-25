@@ -45,22 +45,6 @@
                                  "\"-d\" \"{\\\"template\\\":\\\"{% for state in states %}{{state.entity_id}}\\n{% endfor %}\\\"}\"")))
       (async-shell-command curl-command "*hassio*" "*httperror*"))))
 
-;; (helm :sources (helm-build-async-source "HASS Entities"
-;;                 :candidates-process
-;;                  (lambda ()
-;;                    (start-process "" nil "curl"
-;;                                   "https://gnomesoup.duckdns.org:8123/api/template"
-;;                                   "-H" "Content-Type: application/json"
-;;                                   "-H" "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkMWEzZjk0MmZlNDA0ZjZlOWFhYjMyMjI3YzFjMjVkOSIsImlhdCI6MTU0ODAwNjUzMiwiZXhwIjoxODYzMzY2NTMyfQ.AvuqvajWsrpPKrGcFRbtUm2ad_r7-DAgv1CZ3kz5Su4"
-;;                                   "-d" "{\"template\":\"{% for state in states %}{{state.entity_id}}\\n{% endfor %}\"}")))
-;;       :buffer "*helm*")
-
-;;       (start-process-shell-command "curl" nil
-;;                                    (concat "curl -X POST "
-;;                                            "-H \"Content-Type: application/json\" "
-;;                                            "-H \"Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkMWEzZjk0MmZlNDA0ZjZlOWFhYjMyMjI3YzFjMjVkOSIsImlhdCI6MTU0ODAwNjUzMiwiZXhwIjoxODYzMzY2NTMyfQ.AvuqvajWsrpPKrGcFRbtUm2ad_r7-DAgv1CZ3kz5Su4\" "
-;;                                            "-d '{\"template\":\"{% for state in states %}{{state.entity_id}}\\n{% endfor %}\"}\" "
-;;                                            "https://gnomesoup.duckdns.org:8123/api/template"))
 (defun hass-api/get-state-by-entity(&optional entity_id)
   "Get the state properties of the entity provided"
   (interactive)
@@ -89,18 +73,19 @@
                                                 "~/hassio-config/hass-token.txt"))
            (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
                                               "~/hassio-config/hass-token.txt"))
-           (entity_id
-            (helm :sources
-                  (helm-build-async-source "HASS Entities"
-                    :candidates-process
-                    (lambda ()
-                      (start-process "" nil "curl"
-                                     (concat hass-url "/api/template")
-                                     "-H" "Content-Type: application/json"
-                                     "-H"
-                                     (concat "Authorization: Bearer " hass-token)
-                                     "-d" "{\"template\":\"{% for state in states %}{{state.entity_id}}\\t{{state.attributes.friendly_name}}\\n{% endfor %}\"}")))
-                                 :buffer "*helm*")))
+           (entity_ids (shell-command-to-string
+                           (concat "curl -H \"Content-Type: application/json\" "
+                                   "-H \"Authorization: Bearer "
+                                   hass-token
+                                   "\" "
+                                   hass-url
+                                   "/api/template "
+                                   "-d"
+                                   "\"{\\\"template\\\":\\\"{% for state in states %}{{state.entity_id}}\\t{{state.attributes.friendly_name}}\\n{% endfor %}\\\"}\"")))
+           (entity_id (helm :sources
+                             (helm-build-sync-source "HA Entities"
+                               :candidates (split-string entity_ids "\n")
+                               :fuzzy-match t))))
       (car (split-string entity_id "\t")))))
 
 
