@@ -13,8 +13,7 @@
   "Restart the hassio Git Pull addon"
   (interactive)
   (save-excursion
-    (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
-                                             "~/hassio-config/hass-token.txt"))
+    (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)" "~/hassio-config/hass-token.txt"))
           (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
                                            "~/hassio-config/hass-token.txt"))
           (curl-command (concat "curl \"-i\" \"-H\" \"Content-Type: application/json\" \"-H\" \"Authorization: Bearer "
@@ -98,4 +97,27 @@
 
 (spacemacs/set-leader-keys "ahe" 'hass-api/get-entity-from-list-to-buffer)
 
+(defun hass-api/get-state-from-list()
+  "Get entity state from a helm list of entities"
+  (interactive)
+  (let* ((entity_id (hass-api/get-entity-from-list))
+         (template_statement
+          (concat "\"{\\\"template\\\":\\\""
+                  "entity_id:" entity_id "\\n"
+                  "friendly_name: {{ state_attr('"
+                  entity_id
+                  "', 'friendly_name') }}\\n"
+                  "state: {{ states('" entity_id "') }}"
+                  "\\\"}\"")
+          ))
+    (message "%s" (shell-command-to-string
+                   (concat "curl -H \"Content-Type: application/json\" "
+                           "-H \"Authorization: Bearer "
+                           hass-token
+                           "\" "
+                           hass-url
+                           "/api/template "
+                           "-d"
+                           template_statement)))))
+(spacemacs/set-leader-keys "ahs" 'hass-api/get-state-from-list)
 (provide 'hass-api)
