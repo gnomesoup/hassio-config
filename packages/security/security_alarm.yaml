@@ -1,3 +1,4 @@
+# alarm panel setup
 alarm_control_panel:
   - platform: manual
     name: Home Alarm
@@ -13,19 +14,24 @@ alarm_control_panel:
       pending_time: 0
       delay_time: 0
 
+# toggles to control alarm flow
 input_boolean:
   alarm_control_panel_disarm:
     name: Alarm Control Panel Disarm
   alarm_control_panel_trigger:
     name: Alarm Control Panel Trigger Test
+  alarm_flash_lights:
+    name: Alarm Flash Lights
 
 automation:
+  # Opening front door or patio door will trigger alarm
   - alias: Alarm Control Panel Trigger All
     trigger:
       - platform: state
         entity_id:
           - input_boolean.alarm_control_panel_trigger
           - binary_sensor.door_sensor_2
+          - binary_sensor.door_sensor_3
         to: "on"
     condition:
       - condition: template
@@ -35,6 +41,7 @@ automation:
       - service: alarm_control_panel.alarm_trigger
         entity_id: alarm_control_panel.home_alarm
 
+  # Motion in the house will trigger alarm when set to away
   - alias: Alarm Control Panel Trigger Away
     trigger:
       - platform: state
@@ -45,6 +52,7 @@ automation:
           - binary_sensor.motion_mary_bedroom
           - binary_sensor.motion_master_bedroom
           - binary_sensor.door_sensor_3
+        to: 'on'
     condition:
       - condition: template
         value_template: >-
@@ -53,6 +61,7 @@ automation:
       - service: alarm_control_panel.alarm_trigger
         entity_id: alarm_control_panel.home_alarm
 
+  # Play sound on speakers when Mary's door is open and alarm is night
   - alias: Alarm Marys Door
     trigger:
       - platform: state
@@ -71,6 +80,8 @@ automation:
           media_content_id: "https://dl.dropboxusercontent.com/s/mpdyuzl5svyuxmq/Rooster%20Crowing-SoundBible.com-43612401.mp3"
           media_content_type: "music"
 
+  # Action when alarm is triggered
+  # Sound siren and play sound on speakers
   - alias: Alarm Control Panel Send Notification
     trigger:
       - platform: state
@@ -92,6 +103,7 @@ automation:
           title: "Alarm"
           message: "Triggered"
 
+  # silence alarms when alarm disarmed
   - alias: "Alarm Control Panel Disarm From Trigger"
     trigger:
       - platform: state
