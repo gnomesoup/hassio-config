@@ -1,13 +1,67 @@
 (require 'json)
 
-(spacemacs/declare-prefix "ah" "hass-api")
-
 (defun mjp/match-file-contents (regex filePath)
   "Matches a regular expression with contents in another file"
   (let ((fContents (with-temp-buffer (insert-file-contents filePath nil)
                                      (buffer-string))))
     (string-match regex fContents)
     (match-string 1 fContents)))
+
+
+(spacemacs/declare-prefix "ah" "hass-api")
+(spacemacs/declare-prefix "ahr" "refresh")
+
+(defun hass-api/get-all-entities-as-list()
+  "Use curl to grab a list of all entities from home assistant"
+  (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
+                                              "~/hassio-config/hass-token.txt"))
+         (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
+                                            "~/hassio-config/hass-token.txt"))
+         (entity_ids (shell-command-to-string
+                      (concat "curl -H \"Content-Type: application/json\" "
+                              "-H \"Authorization: Bearer "
+                              hass-token
+                              "\" "
+                              hass-url
+                              "/api/template "
+                              "-d"
+                              "\"{\\\"template\\\":\\\"{% for state in states %}{{state.entity_id}}\\n{% endfor %}\\\"}\""))))
+    (split-string entity_ids "\n")))
+
+(defun hass-api/refresh-entities()
+  "Download latest entities from Home Assistant"
+  (interactive)
+  (setq hass-api/entities (hass-api/get-all-entities-as-list)))
+
+(hass-api/refresh-entities)
+(spacemacs/set-leader-keys "ahre" 'hass-api/refresh-entities)
+
+(defun hass-api/get-all-entities-and-names-as-list()
+  "Use curl to grab a list of all entities and their friendly names from home assistant"
+  (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
+                                              "~/hassio-config/hass-token.txt"))
+         (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
+                                            "~/hassio-config/hass-token.txt"))
+         (entity_ids (shell-command-to-string
+                      (concat "curl -H \"Content-Type: application/json\" "
+                              "-H \"Authorization: Bearer "
+                              hass-token
+                              "\" "
+                              hass-url
+                              "/api/template "
+                              "-d"
+                              "\"{\\\"template\\\":\\\"{% for state in states %}{{state.entity_id}}\\t'{{state.attributes.friendly_name}}'\\n{% endfor %}\\\"}\""))))
+    (split-string entity_ids "\n")))
+
+(defun hass-api/refresh-entities-and-names()
+  "Download latest entities from Home Assistant"
+  (interactive)
+  (setq hass-api/entities-and-names (hass-api/get-all-entities-and-names-as-list)))
+
+(hass-api/refresh-entities-and-names)
+(spacemacs/set-leader-keys "ahrn" 'hass-api/refresh-entities-and-names)
+
+;; (defun hass-api/get-all-services-as-list())
 
 (defun hass-api/gitpull-restart()
   "Restart the hassio Git Pull addon"
@@ -68,22 +122,9 @@
 (defun hass-api/get-entity-from-list()
   "Get the state properties of the entity provided"
   (save-excursion
-    (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
-                                                "~/hassio-config/hass-token.txt"))
-           (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
-                                              "~/hassio-config/hass-token.txt"))
-           (entity_ids (shell-command-to-string
-                           (concat "curl -H \"Content-Type: application/json\" "
-                                   "-H \"Authorization: Bearer "
-                                   hass-token
-                                   "\" "
-                                   hass-url
-                                   "/api/template "
-                                   "-d"
-                                   "\"{\\\"template\\\":\\\"{% for state in states %}{{state.entity_id}}\\t{{state.attributes.friendly_name}}\\n{% endfor %}\\\"}\"")))
-           (entity_id (helm :sources
+    (let* ((entity_id (helm :sources
                              (helm-build-sync-source "HA Entities"
-                               :candidates (split-string entity_ids "\n")
+                               :candidates hass-api/entities-and-names
                                :fuzzy-match t))))
       (car (split-string entity_id "\t")))))
 
@@ -92,8 +133,10 @@
 (defun hass-api/get-entity-from-list-to-buffer()
   "Output selected entity id from a helm list of entities"
   (interactive)
-  (let* ((entity_id (hass-api/get-entity-from-list)))
-    (insert entity_id)))
+  (save-excursion
+    (let* ((entity_id (hass-api/get-entity-from-list)))
+      (forward-char)
+      (insert entity_id))))
 
 (spacemacs/set-leader-keys "ahe" 'hass-api/get-entity-from-list-to-buffer)
 
