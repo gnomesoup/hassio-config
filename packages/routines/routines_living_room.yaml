@@ -19,14 +19,17 @@ automation:
   trigger:
     - platform: state
       entity_id:
-        - input_select.camille_status
-        - input_select.michael_status
-      to: "Home"
-      from: "Asleep"
+        - binary_sensor.motion_living_room
+        - binary_sensor.motion_hallway
+      to: 'on'
   condition:
     - condition: time
       after: '05:00:00'
       before: '10:00:00'
+    - condition: template
+      value_template: >-
+        {{ states('input_select.michael_status') == 'Home' or
+           states('input_select.camille_status') == 'Home' }}
   action:
     - service: homeassistant.turn_on
       entity_id: script.goodmorning_living_room
