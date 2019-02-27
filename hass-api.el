@@ -18,7 +18,7 @@
          (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
                                             "~/hassio-config/hass-token.txt"))
          (entity_ids (shell-command-to-string
-                      (concat "curl -H \"Content-Type: application/json\" "
+                      (concat "curl -s -H \"Content-Type: application/json\" "
                               "-H \"Authorization: Bearer "
                               hass-token
                               "\" "
@@ -43,12 +43,12 @@
          (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
                                             "~/hassio-config/hass-token.txt"))
          (entity_ids (shell-command-to-string
-                      (concat "curl -H \"Content-Type: application/json\" "
+                      (concat "curl -s -H \"Content-Type: application/json\" "
                               "-H \"Authorization: Bearer "
                               hass-token
-                              "\" "
+                              "\" \""
                               hass-url
-                              "/api/template "
+                              "/api/template\" "
                               "-d"
                               "\"{\\\"template\\\":\\\"{% for state in states %}{{state.entity_id}}\\t'{{state.attributes.friendly_name}}'\\n{% endfor %}\\\"}\""))))
     (split-string entity_ids "\n")))
@@ -89,7 +89,7 @@
                                                 "~/hassio-config/hass-token.txt"))
            (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
                                               "~/hassio-config/hass-token.txt"))
-           (curl-command (concat "curl -i -H \"Content-Type: application/json\" "
+           (curl-command (concat "curl -H \"Content-Type: application/json\" "
                                  " -H \"Authorization: Bearer "
                                  hass-token
                                  "\" \"-XPOST\" \""
@@ -144,6 +144,10 @@
   "Get entity state from a helm list of entities"
   (interactive)
   (let* ((entity_id (hass-api/get-entity-from-list))
+         (hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
+                                              "~/hassio-config/hass-token.txt"))
+         (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
+                                            "~/hassio-config/hass-token.txt"))
          (template_statement
           (concat "\"{\\\"template\\\":\\\""
                   "entity_id:" entity_id "\\n"
@@ -163,4 +167,28 @@
                            "-d"
                            template_statement)))))
 (spacemacs/set-leader-keys "ahs" 'hass-api/get-state-from-list)
+
+(defun hass-api/template(arg)
+  "Run supplied template as `arg' on Home Assistant instance"
+  (interactive "sTemplate: ")
+  (let* ((hass-token (mjp/match-file-contents "hass-token = \\(.*\\)"
+                                              "~/hassio-config/hass-token.txt"))
+         (hass-url (mjp/match-file-contents "hass-url = \\(.*\\)"
+                                            "~/hassio-config/hass-token.txt"))
+         (arg (concat "{\\\"template\\\":\\\"" arg "\\\"}"))
+         )
+    (unless arg
+      (error "No temlate provided"))
+    (async-shell-command
+     (concat "curl -s -H \"Content-Type: application/json\" "
+             "-H \"Authorization: Bearer "
+             hass-token
+             "\" "
+             hass-url
+             "/api/template "
+             "-d \"" arg "\"")
+     "*HA Template*"
+     "*HA Error*")
+    (message "Template: %s" arg)))
+
 (provide 'hass-api)

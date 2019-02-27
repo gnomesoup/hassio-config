@@ -21,7 +21,7 @@ Content-Type: application/json
 POST :hass-url/api/template
 Authorization: Bearer :hass-token
 Content-Type: application/json
-{"template":"{% for state in states %}{{state.entity_id}}\n{% endfor %}"}
+{"template":" {{ states('input_select.michael_status') == 'Home' or states('input_select.camille_status') == 'Home' }}"}
 
 # restart git_pull
 POST :hass-url/api/services/hassio/addon_restart
@@ -50,6 +50,6 @@ Authorization: Bearer :hass-token
 Content-Type: application/json
 
 # entity state
-GET :hass-url/api/states/binary_sensor.linear_wapirz1_motion_sensor_sensor
+GET :hass-url/api/states/switch.linear_unknown_type_2005_id_0503_switch
 Authorization: Bearer :hass-token
 Content-Type: application/json
