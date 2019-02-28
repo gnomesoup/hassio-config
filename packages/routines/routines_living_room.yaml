@@ -15,24 +15,29 @@ group:
       - light.accordian_lamp
 
 automation:
-  alias: Wakeup Living Room
-  trigger:
-    - platform: state
-      entity_id:
-        - binary_sensor.motion_living_room
-        - binary_sensor.motion_hallway
-      to: 'on'
-  condition:
-    - condition: time
-      after: '05:00:00'
-      before: '10:00:00'
-    - condition: template
-      value_template: >-
-        {{ states('input_select.michael_status') == 'Home' or
-           states('input_select.camille_status') == 'Home' }}
-  action:
-    - service: homeassistant.turn_on
-      entity_id: script.goodmorning_living_room
+  - alias: Wakeup Living Room
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.motion_living_room
+          - binary_sensor.motion_hallway
+        to: 'on'
+    condition:
+      - condition: time
+        after: '05:00:00'
+        before: '10:00:00'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.goodmorning_living_room
+
+  - alias: Wakeup Living Room Setup
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: "Home"
+    action:
+      - service: homeassistant.turn_on
+        entity_id: automation.wakeup_living_room
 
 script:
   tv_time:
@@ -48,7 +53,13 @@ script:
             - group.lights_living_room
           brightness: 127
 
-
+  radio_time:
+    alias: Radio Time
+    sequence:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_tv
+          volume_level: 0.3
 
   get_mellowed:
     alias: Get Mellowed
@@ -81,3 +92,7 @@ script:
             - light.aeotec_zw111_nano_dimmer_level_3
             - group.lights_living_room
           brightness: 255
+      - service: homeassistant.turn_off
+        data:
+          entity_id:
+            - automation.wakeup_living_room

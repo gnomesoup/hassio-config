@@ -61,5 +61,5 @@ automation:
         entity_id: input_select.mary_status
         to: "Asleep"
     action:
-      - platform: alarm_control_panel.arm_home
+      - service: alarm_control_panel.alarm_arm_home
         entity_id: alarm_control_panel.aarlo_lancaster
