@@ -8,7 +8,7 @@ camera:
 
 alarm_control_panel:
   - platform: aarlo
-    home_mode_name: mary asleep
+    home_mode_name: Home
     away_mode_name: armed
     night_mode_name: armed
 
@@ -42,12 +42,24 @@ automation:
     action:
       - entity_id: alarm_control_panel.aarlo_lancaster
         service_template: >-
-          {% if armed_home %}
+          {% if trigger.to_state.state == "armed_home" %}
           alarm_control_panel.alarm_arm_home
-          {% elif  armed_night %}
+          {% elif trigger.to_state.state == "armed_night" %}
           alarm_control_panel.alarm_arm_night
           {% elif trigger.to_state.state == "armed_away" %}
           alarm_control_panel.alarm_arm_away
+          {% elif trigger.to_state.state == "disarmed" and
+             states.input_select.mary_status == "Asleep" %}
+          alarm_control_panel.alarm_arm_home
           {% else %}
           alarm_control_panel.alarm_disarm
           {% endif %}
+
+  - alias: Aarlo to home when Mary asleep
+    trigger:
+      - platform: state
+        entity_id: input_select.mary_status
+        to: "Asleep"
+    action:
+      - platform: alarm_control_panel.arm_home
+        entity_id: alarm_control_panel.aarlo_lancaster
