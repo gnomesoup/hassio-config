@@ -150,15 +150,12 @@
                                             "~/hassio-config/hass-token.txt"))
          (template_statement
           (concat "\"{\\\"template\\\":\\\""
-                  "entity_id:" entity_id "\\n"
-                  "friendly_name: {{ state_attr('"
-                  entity_id
-                  "', 'friendly_name') }}\\n"
-                  "state: {{ states('" entity_id "') }}"
+                  "{{ states." entity_id
+                  " }}"
                   "\\\"}\"")
           ))
     (message "%s" (shell-command-to-string
-                   (concat "curl -H \"Content-Type: application/json\" "
+                   (concat "curl -s -H \"Content-Type: application/json\" "
                            "-H \"Authorization: Bearer "
                            hass-token
                            "\" "
