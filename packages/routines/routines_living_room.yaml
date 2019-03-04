@@ -34,7 +34,7 @@ automation:
     trigger:
       - platform: state
         entity_id: alarm_control_panel.home_alarm
-        to: "Home"
+        to: "disarmed"
     action:
       - service: homeassistant.turn_on
         entity_id: automation.wakeup_living_room

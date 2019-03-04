@@ -17,6 +17,7 @@ homeassistant:
     - type: homeassistant
     - type: trusted_networks
 
+person:
 http:
   base_url: !secret http_url
   ssl_certificate: /ssl/fullchain.pem
