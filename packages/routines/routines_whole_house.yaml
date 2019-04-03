@@ -17,6 +17,7 @@ group:
     view: false
     entities:
       - switch.aeotec_dsc06106_smart_energy_switch_switch_2
+      - switch.zooz_zen06_switch_2
   media_whole_house:
     name: Media devices in the entire house
     view: false

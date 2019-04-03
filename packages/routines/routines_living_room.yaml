@@ -92,6 +92,10 @@ script:
             - light.aeotec_zw111_nano_dimmer_level_3
             - group.lights_living_room
           brightness: 255
+      - service: switch.turn_on
+        data:
+          entity_id:
+            - switch.zooz_zen06_switch_2
       - service: homeassistant.turn_off
         data:
           entity_id:

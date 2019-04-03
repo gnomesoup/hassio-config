@@ -45,7 +45,7 @@ automation:
           - thu
           - fri
     action:
-      - service: script.turn_on
+      - service: homeassistant.turn_on
         entity_id: script.goodmorning_camille
       - service: media_player.play_media
         data:
@@ -73,6 +73,9 @@ automation:
         data:
           entity_id: input_select.camille_status
           option: "Home"
+      - service: homeassistant.turn_off
+        data:
+          entity_id: automation.wakeup_camille
 
   - alias: Lights Bedroom Camille On
     trigger:
@@ -193,6 +196,9 @@ script:
         data:
           entity_id: input_select.camille_status
           option: "Asleep"
+      - service: homeassistant.turn_on
+        data:
+          entity_id: automation.wakeup_camille
       - service: media_player.volume_set
         data:
           entity_id: media_player.camille_s_speaker
