@@ -40,7 +40,7 @@ Authorization: Bearer :hass-token
 Content-Type: application/json
 
 # history
-POST :hass-url/api/history/period/2018-11-10T13:00:00+05:00
+GET :hass-url/api/history/period/2019-03-18T6:29:00+05:00
 Authorization: Bearer :hass-token
 Content-Type: application/json
 
