@@ -43,6 +43,9 @@ script:
   tv_time:
     alias: TV Time
     sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.zooz_zen06_switch_2
       - service: media_player.volume_set
         data:
           entity_id: media_player.living_room_tv
@@ -50,12 +53,20 @@ script:
       - service: light.turn_on
         data:
           entity_id:
-            - group.lights_living_room
+            - light.living_room_lamp
+          brightness: 127
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.accordian_lamp
           brightness: 127
 
   radio_time:
     alias: Radio Time
     sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.zooz_zen06_switch_2
       - service: media_player.volume_set
         data:
           entity_id: media_player.living_room_tv
@@ -64,17 +75,15 @@ script:
   get_mellowed:
     alias: Get Mellowed
     sequence:
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.living_room_tv
-          volume_level: 0.8
       - service: light.turn_on
         data:
-          entity_id: group.lights_living_room
+          entity_id:
+            - light.living_room_lamp
           brightness: 35
       - service: light.turn_off
         data:
           entity_id:
+            - light.accordian_lamp
             - light.aeotec_zw111_nano_dimmer_level
             - light.aeotec_zw111_nano_dimmer_level_3
 

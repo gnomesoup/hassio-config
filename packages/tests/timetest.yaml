@@ -1,0 +1,16 @@
+# input_datetime:
+#   timetest:
+#     name: Time Test Input
+#     has_time: true
+
+# automation:
+#   alias: Time Test Automation
+#   trigger:
+#     - platform: time
+#       at: "{{ states.input_datetime.alarm_time_camille.state }}"
+#   action:
+#     - service: notify.ios_ergisch
+#       data:
+#         title: "Time Test"
+#         message: >-
+#           Time is {{ now() }}
